@@ -44,8 +44,8 @@ async function sendJoke() {
 }
 
 // Schedule template and joke sending
-setInterval(sendTemplate, 1 * 60 * 1000); // Sends template every hour
-setInterval(sendJoke, 1 * 60 * 1000); // Sends joke every 30 minutes
+setInterval(sendTemplate, 60 * 60 * 1000); // Sends template every hour
+setInterval(sendJoke, 45 * 60 * 1000); // Sends joke every 30 minutes
 
 // Express route for handling webhook requests
 app.post(`/bot${process.env.BOT_TOKEN}`, (req, res) => {
