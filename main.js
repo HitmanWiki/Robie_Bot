@@ -1,8 +1,9 @@
-// require('dotenv').config(); // Optional: only needed for local development with a .env file
+require('dotenv').config(); // Load environment variables from .env
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const cron = require('node-cron');
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,9 +44,61 @@ async function sendJoke() {
     }
 }
 
-// Schedule template and joke sending
-setInterval(sendTemplate, 60 * 60 * 1000); // Sends template every hour
-setInterval(sendJoke, 45 * 60 * 1000); // Sends joke every 30 minutes
+// Function to send daily community tasks message
+function sendDailyCommunityTask() {
+    const dailyTasksText = `
+*DAILY COMMUNITY TASKS!*  
+
+Please vote up or hit the Rocket on all platforms:  
+
+The importance of completing daily tasks is to maximize the growth and success of the project.  
+Let's work together to achieve our goals and make a positive impact on the project's future!  
+
+Write and post a bullish comment about $Robie.
+
+⚡ [Dextools](https://www.dextools.io/app/en/ether/pair-explorer/0xbf36abdf1ac7536adc354fb5a0dedb4c155520d3?t=1730446639793)  
+⚡ [Dexscreener](https://dexscreener.com/ethereum/0xbf36abdf1ac7536adc354fb5a0dedb4c155520d3)  
+⚡ [Launchbar](https://launchbar.pro/token/$Robie)  
+⚡ [Coinscope](https://www.coinscope.co/coin/robie)  
+⚡ [Coinhunt](https://coinhunt.cc/coin/6725e95605f71f1653b80376)  
+⚡ [Coinbrain](https://coinbrain.com/coins/eth-0x2025bf4e0c1117685b1bf2ea2be56c7deb11bc99)  
+⚡ [Birdeye](https://birdeye.so/token/0x2025bf4e0c1117685b1bf2ea2be56c7deb11bc99?chain=ethereum)  
+⚡ [CoinDizzy](https://coindizzy.com/coin/0x2025BF4E0C1117685b1BF2ea2be56C7Deb11bc99)  
+⚡ [Coindetector](https://www.coindetector.cc/address/0x2025bf4e0c1117685b1bf2ea2be56c7deb11bc99)  
+⚡ [FomoSpiders](https://fomospider.com/coin/Robie)  
+⚡ [Coinmoonhunt](https://coinmoonhunt.com/coin/Robie)  
+⚡ [Gemsradar](https://gemsradar.com/coins/robie)  
+⚡ [Top100Token](https://top100token.com/address/0x2025BF4E0C1117685b1BF2ea2be56C7Deb11bc99)  
+⚡ [Coinsnipper](https://coinsniper.net/coin/73156)  
+⚡ [Coindetector](https://www.coindetector.cc/address/0x2025bf4e0c1117685b1bf2ea2be56c7deb11bc99)  
+⚡ [Coinlists](https://coinlists.net/coin/2938)  
+⚡ [Twitter](https://x.com/RobieCoin)  
+
+---
+
+*Glitch for infinite rockets on dexscreener:* [Dexscreener](https://dexscreener.com/ethereum/0xbf36abdf1ac7536adc354fb5a0dedb4c155520d3)  
+
+Get off WiFi and use your mobile data:
+
+1. Go to dexscreener and hit the emoji (🚀 or 🔥)  
+2. Turn airplane mode on and then turn it off.  
+3. Refresh the dexscreener page and then hit the emoji again.  
+
+You can do it as many times as you want. Let's do it together and get 1000 🚀 and 1000 🔥!  
+
+⚡🚀 [Dexscreener](https://dexscreener.com/ethereum/0xbf36abdf1ac7536adc354fb5a0dedb4c155520d3) 🚀
+`;
+
+    bot.sendMessage(process.env.CHAT_ID, dailyTasksText, { parse_mode: 'Markdown' })
+        .catch(error => console.error("Error sending daily tasks message:", error));
+}
+
+// Schedule template and joke sending using node-cron
+cron.schedule('0 */1 * * *', sendTemplate); // Sends template every hour
+cron.schedule('*/45 * * * *', sendJoke); // Sends joke every 45 minutes
+
+// Schedule daily community task every 2 hours
+cron.schedule('0 */2 * * *', sendDailyCommunityTask); // Sends daily community task every 2 hours
 
 // Express route for handling webhook requests
 app.post(`/bot${process.env.BOT_TOKEN}`, (req, res) => {
