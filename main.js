@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables from .env
+
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const axios = require('axios');
