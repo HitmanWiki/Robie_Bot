@@ -33,13 +33,13 @@ function sendThemeMessage(day) {
 }
 
 // Schedule theme messages every 2 hours on each specific day
-cron.schedule('0 */2 * * 1', () => sendThemeMessage('monday'));     // Every 2 hours on Monday
-cron.schedule('0 */2 * * 2', () => sendThemeMessage('tuesday'));    // Every 2 hours on Tuesday
-cron.schedule('0 */2 * * 3', () => sendThemeMessage('wednesday'));  // Every 2 hours on Wednesday
-cron.schedule('0 */2 * * 4', () => sendThemeMessage('thursday'));   // Every 2 hours on Thursday
-cron.schedule('0 */2 * * 5', () => sendThemeMessage('friday'));     // Every 2 hours on Friday
-cron.schedule('0 */2 * * 6', () => sendThemeMessage('saturday'));   // Every 2 hours on Saturday
-cron.schedule('0 */2 * * 0', () => sendThemeMessage('sunday'));     // Every 2 hours on Sunday
+cron.schedule('0 */6 * * 1', () => sendThemeMessage('monday'));     // Every 2 hours on Monday
+cron.schedule('0 */6 * * 2', () => sendThemeMessage('tuesday'));    // Every 2 hours on Tuesday
+cron.schedule('0 */6 * * 3', () => sendThemeMessage('wednesday'));  // Every 2 hours on Wednesday
+cron.schedule('0 */6 * * 4', () => sendThemeMessage('thursday'));   // Every 2 hours on Thursday
+cron.schedule('0 */6 * * 5', () => sendThemeMessage('friday'));     // Every 2 hours on Friday
+cron.schedule('0 */6 * * 6', () => sendThemeMessage('saturday'));   // Every 2 hours on Saturday
+cron.schedule('0 */6 * * 0', () => sendThemeMessage('sunday'));     // Every 2 hours on Sunday
 
 
 // Template including text and image path
@@ -125,11 +125,11 @@ You can do it as many times as you want. Let's do it together and get 1000 🚀 
 }
 
 // Schedule template and joke sending using node-cron
-cron.schedule('0 */1 * * *', sendTemplate); // Sends template every hour
-cron.schedule('*/45 * * * *', sendJoke); // Sends joke every 45 minutes
+cron.schedule('0 */4 * * *', sendTemplate); // Sends template every hour
+cron.schedule('*/60 * * * *', sendJoke); // Sends joke every 45 minutes
 
 // Schedule daily community task every 2 hours
-cron.schedule('0 */2 * * *', sendDailyCommunityTask); // Sends daily community task every 2 hours
+cron.schedule('0 */8 * * *', sendDailyCommunityTask); // Sends daily community task every 2 hours
 
 // Express route for handling webhook requests
 app.post(`/bot${process.env.BOT_TOKEN}`, (req, res) => {
