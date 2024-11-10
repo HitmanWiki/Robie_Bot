@@ -3,7 +3,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-// const cron = require('node-cron');
+const cron = require('node-cron');
 
 const app = express();
 app.use(bodyParser.json());
