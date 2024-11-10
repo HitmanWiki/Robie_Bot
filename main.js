@@ -3,7 +3,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const cron = require('node-cron');
+// const cron = require('node-cron');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,34 +12,34 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { webHook: true });
 bot.setWebHook(`${process.env.APP_URL}/bot${process.env.BOT_TOKEN}`);
 
 // Theme messages for each day of the week
-const weeklyThemes = {
-    monday: "Happy Meme Mania Monday, Robie fam! 🤖😂 It’s time to kick off the week with some laughs—share your funniest Robie-themed memes in TG and X and let’s get creative! Use the hashtags to spread the word! #MemeMania #Robie",
-    tuesday: "It's Taskmaster Tuesday, Robie fam! 💪🚀 We’ve got a task for you today—let’s come together and get it done! Check today’s pinned message for your mission.",
-    wednesday: "Happy Wisdom Wednesday, Robie fam! 📚✨ Let’s share our best crypto tips, tricks, and wisdom today. Got something smart to share? Let’s learn and grow together! Keep an eye out for Moth’s pinned words of wisdom #WisdomWednesday #RobiesCryptoAcademy",
-    thursday: "It's Taskmaster Thursday, Robie fam! 🔙🎉 Let’s take the day to get our work done. We’ve got another task for you today—let’s come together and get it done! Check today’s pinned message for your mission.",
-    friday: "Welcome to Feature Friday, Robie fam! 🌟 Today, we’re shining the spotlight on an amazing community member. Stay tuned for today’s feature—and let’s celebrate those who make RobieCoin special! #FeatureFriday #Robie",
-    saturday: "Happy Share-It Saturday, Robie fam! 🫂💎 Let’s get personal today—share a story, a win, or even how you joined the Robie community. Let’s connect and grow together! #ShareItSaturday #Robie",
-    sunday: "It’s Strategy Sunday, Robie fam! 📈🚀 Let’s discuss our goals and plans for the week ahead. What’s next for RobieCoin? Let’s prepare for success and make it happen together! Stay tuned for an update from the team. #StrategySunday"
-};
+// const weeklyThemes = {
+//     monday: "Happy Meme Mania Monday, Robie fam! 🤖😂 It’s time to kick off the week with some laughs—share your funniest Robie-themed memes in TG and X and let’s get creative! Use the hashtags to spread the word! #MemeMania #Robie",
+//     tuesday: "It's Taskmaster Tuesday, Robie fam! 💪🚀 We’ve got a task for you today—let’s come together and get it done! Check today’s pinned message for your mission.",
+//     wednesday: "Happy Wisdom Wednesday, Robie fam! 📚✨ Let’s share our best crypto tips, tricks, and wisdom today. Got something smart to share? Let’s learn and grow together! Keep an eye out for Moth’s pinned words of wisdom #WisdomWednesday #RobiesCryptoAcademy",
+//     thursday: "It's Taskmaster Thursday, Robie fam! 🔙🎉 Let’s take the day to get our work done. We’ve got another task for you today—let’s come together and get it done! Check today’s pinned message for your mission.",
+//     friday: "Welcome to Feature Friday, Robie fam! 🌟 Today, we’re shining the spotlight on an amazing community member. Stay tuned for today’s feature—and let’s celebrate those who make RobieCoin special! #FeatureFriday #Robie",
+//     saturday: "Happy Share-It Saturday, Robie fam! 🫂💎 Let’s get personal today—share a story, a win, or even how you joined the Robie community. Let’s connect and grow together! #ShareItSaturday #Robie",
+//     sunday: "It’s Strategy Sunday, Robie fam! 📈🚀 Let’s discuss our goals and plans for the week ahead. What’s next for RobieCoin? Let’s prepare for success and make it happen together! Stay tuned for an update from the team. #StrategySunday"
+// };
 
-// Function to send theme message for the specified day
-function sendThemeMessage(day) {
-    const message = weeklyThemes[day.toLowerCase()];
-    if (message) {
-        bot.sendMessage(process.env.CHAT_ID, message)
-            .then(() => console.log(`Sent ${day} message successfully`))
-            .catch(error => console.error(`Error sending ${day} message:`, error));
-    }
-}
+// // Function to send theme message for the specified day
+// function sendThemeMessage(day) {
+//     const message = weeklyThemes[day.toLowerCase()];
+//     if (message) {
+//         bot.sendMessage(process.env.CHAT_ID, message)
+//             .then(() => console.log(`Sent ${day} message successfully`))
+//             .catch(error => console.error(`Error sending ${day} message:`, error));
+//     }
+// }
 
-// Schedule theme messages every 2 hours on each specific day
-cron.schedule('0 */6 * * 1', () => sendThemeMessage('monday'));     // Every 2 hours on Monday
-cron.schedule('0 */6 * * 2', () => sendThemeMessage('tuesday'));    // Every 2 hours on Tuesday
-cron.schedule('0 */6 * * 3', () => sendThemeMessage('wednesday'));  // Every 2 hours on Wednesday
-cron.schedule('0 */6 * * 4', () => sendThemeMessage('thursday'));   // Every 2 hours on Thursday
-cron.schedule('0 */6 * * 5', () => sendThemeMessage('friday'));     // Every 2 hours on Friday
-cron.schedule('0 */6 * * 6', () => sendThemeMessage('saturday'));   // Every 2 hours on Saturday
-cron.schedule('0 */6 * * 0', () => sendThemeMessage('sunday'));     // Every 2 hours on Sunday
+// // Schedule theme messages every 2 hours on each specific day
+// cron.schedule('0 */6 * * 1', () => sendThemeMessage('monday'));     // Every 2 hours on Monday
+// cron.schedule('0 */6 * * 2', () => sendThemeMessage('tuesday'));    // Every 2 hours on Tuesday
+// cron.schedule('0 */6 * * 3', () => sendThemeMessage('wednesday'));  // Every 2 hours on Wednesday
+// cron.schedule('0 */6 * * 4', () => sendThemeMessage('thursday'));   // Every 2 hours on Thursday
+// cron.schedule('0 */6 * * 5', () => sendThemeMessage('friday'));     // Every 2 hours on Friday
+// cron.schedule('0 */6 * * 6', () => sendThemeMessage('saturday'));   // Every 2 hours on Saturday
+// cron.schedule('0 */6 * * 0', () => sendThemeMessage('sunday'));     // Every 2 hours on Sunday
 
 
 // Template including text and image path
